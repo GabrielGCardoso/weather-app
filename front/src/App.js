@@ -1,6 +1,5 @@
-import Input from './components/input/input';
+import Input from './input/input';
 import './App.css';
-import Card from './components/card/card';
 
 
 export default () => (
