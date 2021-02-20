@@ -4,15 +4,16 @@ import './index.css';
 import App from './App';
 import Card from './components/card/card';
 import reportWebVitals from './reportWebVitals';
-import { BrowserRouter, Switch, Route } from 'react-router-dom';
+import history from './history'
+import { Router, Switch, Route } from 'react-router-dom';
 
 ReactDOM.render(
-    <BrowserRouter>
+    <Router history={history}>
         <Switch>
             <Route path="/" exact={true} component={App} />
             <Route path="/card" component={Card} />
         </Switch>
-    </BrowserRouter>,
+    </Router>,
     document.getElementById('root')
 );
 
