@@ -2,7 +2,6 @@
 
 ### TODO 
 - Make communication front to backend
-- create a mock backend
 - integrate front and back
 - put instructions to use this webapp
 - Think in a solution to cache last results from preview requests
