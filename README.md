@@ -2,10 +2,10 @@
 
 ### TODO 
 - put instructions to use this webapp
-- Communication between api weather and backend 
 - Create error component fragment at weatherView
 - Think in a solution to cache last results from preview requests
-- Create a backend to get the weather by consulting Open Weather API
+- treatment data from api
+- catcher error on backend
 
 ### In progress
 
