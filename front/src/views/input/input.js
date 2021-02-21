@@ -1,9 +1,19 @@
 import './input.css';
 import history from '../../history';
 export default () => {
-    const handleKeyDown = ({ key }) => {
-        if (key === 'Enter') history.push('/card');
+    const handleKeyDown = ({ key, target }) => {
+        if (key === 'Enter') {
+            let { value: InputValue } = target;
+
+            history.push({
+                pathname: '/main',
+                state: {
+                    place: InputValue,
+                },
+            });
+        }
     };
+
     return (
         <div>
             <h3>weather buddy</h3>

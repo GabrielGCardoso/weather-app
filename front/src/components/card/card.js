@@ -1,9 +1,9 @@
 import './card.css';
-export default () => (
-    <div className="card">
-        <div class="container">
+export default (props) => (
+    <div className="card" width={props.width} height={props.height}>
+        <div className="container">
             <h4>
-                <b>Florianópolis</b>
+                <b>{props.place}</b>
             </h4>
             <h4>
                 <b>22 &deg;</b>
