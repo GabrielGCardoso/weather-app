@@ -1,11 +1,13 @@
 import './input.css';
-import history from '../history'
+import history from '../../history';
 export default () => {
-    const handleKeyDown = (e) => {
-        if (e.key === 'Enter') history.push('/card');
+    const handleKeyDown = ({ key }) => {
+        if (key === 'Enter') history.push('/card');
     };
     return (
         <div>
+            <h3>weather buddy</h3>
+            <hr className="Hr" />
             <h4>
                 <b>how is the weather in </b>
                 <b>

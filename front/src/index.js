@@ -1,18 +1,14 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import App from './App';
-import Card from './components/card/card';
+import App from './views/App';
 import reportWebVitals from './reportWebVitals';
-import history from './history'
-import { Router, Switch, Route } from 'react-router-dom';
+import history from './history';
+import { Router } from 'react-router-dom';
 
 ReactDOM.render(
     <Router history={history}>
-        <Switch>
-            <Route path="/" exact={true} component={App} />
-            <Route path="/card" component={Card} />
-        </Switch>
+        <App />
     </Router>,
     document.getElementById('root')
 );
