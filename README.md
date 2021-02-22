@@ -1,6 +1,8 @@
 # A quick and simple WebApp to consulting the Weather
 
 ### TODO 
+- Fix visual componnets
+
 ### In progress
 
 ### Using the WebApp
