@@ -1,6 +1,7 @@
 import Card from '../../components/card/card';
 import React from 'react';
 import WeatherService from '../../services/weatherService';
+import './weatherView.css';
 
 export default class WeatherView extends React.Component {
     constructor(props) {
@@ -14,14 +15,14 @@ export default class WeatherView extends React.Component {
                 temperature: '',
                 description: '',
             },
+            cachedPlaces: [],
         };
         this.listRef = React.createRef();
     }
 
-    setWeatherComponentData(componentData) {
-        const { name, icon, temperature, description } = componentData;
-        const actualPlace = { name, iconCode: icon, temperature, description };
-        this.setState({ isLoading: false, error: false, actualPlace });
+    setWeatherComponentData(responseData) {
+        const { actual: actualPlace, cached: cachedPlaces } = responseData;
+        this.setState({ isLoading: false, error: false, actualPlace, cachedPlaces });
     }
 
     errorHandler(error) {
@@ -41,20 +42,37 @@ export default class WeatherView extends React.Component {
         this.updateWeatherByPlace();
     };
 
+    renderCachedComponents() {
+        return this.state.cachedPlaces.map((place) => (
+            <Card
+                key={place.name}
+                width={'30%'}
+                loading={false}
+                place={place.name}
+                iconCode={place.iconCode}
+                temperature={place.temperature}
+                description={place.description}
+            />
+        ));
+    }
     render = () => {
         if (this.state.error) {
             return <div>Place not found!</div>;
         }
         return (
-            <Card
-                width={'30px'}
-                height={'40px'}
-                loading={this.state.isLoading}
-                place={this.state.actualPlace.name}
-                iconCode={this.state.actualPlace.iconCode}
-                temperature={this.state.actualPlace.temperature}
-                description={this.state.actualPlace.description}
-            />
+            <>
+                <div style={{ width: '50%' }}>
+                    <Card
+                        width={'30%'}
+                        loading={this.state.isLoading}
+                        place={this.state.actualPlace.name}
+                        iconCode={this.state.actualPlace.iconCode}
+                        temperature={this.state.actualPlace.temperature}
+                        description={this.state.actualPlace.description}
+                    />
+                </div>
+                <div style={{ width: '50%' }}>{this.renderCachedComponents()}</div>
+            </>
         );
     };
 }

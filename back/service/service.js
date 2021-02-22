@@ -8,21 +8,22 @@ module.exports = new (class Service {
      */
     constructor() {
         this.appId = config.appID;
-
+        this.cacheService = require('./cacheService');
         this.baseUrl = 'http://api.openweathermap.org/data/2.5/weather';
     }
 
     /**
      * @param {integer} kelvinDegree
-     * @return {integer} Celsius degree
+     * @return {float} Celsius degree
      */
-    kelvinToCelsiusDegree = (kelvinDegree) => kelvinDegree - 273.15;
+    kelvinToCelsiusDegree = (kelvinDegree) =>
+        parseFloat(kelvinDegree - 273.15).toFixed(2);
 
     formatOutPut = (weatherData) => ({
         name: weatherData.name,
         temperature: this.kelvinToCelsiusDegree(weatherData.main.temp),
         description: weatherData.weather[0].description,
-        icon: weatherData.weather[0].icon,
+        iconCode: weatherData.weather[0].icon,
     });
 
     callWeatherAPIByCityName = (cityName) => {
@@ -39,11 +40,15 @@ module.exports = new (class Service {
 
     async getPlace({ place }) {
         try {
-            return await this.callWeatherAPIByCityName(place).then(
+            const actual = await this.callWeatherAPIByCityName(place).then(
                 this.formatOutPut
             );
-        } catch (e) {
-            e = new Error('place not found!');
+            const cached = this.cacheService.getLatest(5);
+            this.cacheService.setCache(place, actual);
+            return { actual, cached };
+        } catch (error) {
+            console.log(error);
+            let e = new Error('place not found!');
             e.error_code = 404;
             throw e;
         }
