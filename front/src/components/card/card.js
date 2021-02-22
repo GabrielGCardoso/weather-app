@@ -16,8 +16,7 @@ export default class Card extends React.Component {
         return (
             <div
                 className="card"
-                width={this.props.width}
-                height={this.props.height}
+                style={{"height":this.props.height,"width":this.props.width}}
             >
                 <div className="container">
                     <h4>
