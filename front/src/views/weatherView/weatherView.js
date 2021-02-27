@@ -32,10 +32,7 @@ export default class WeatherView extends React.Component {
 
     updateWeatherByPlace() {
         this.setState({ isLoading: true });
-        return new WeatherService()
-            .getPlace(this.props.location.state.place)
-            .then(this.setWeatherComponentData.bind(this))
-            .catch(this.errorHandler.bind(this));
+        return new WeatherService().getPlace(this.props.location.state.place).then(this.setWeatherComponentData.bind(this)).catch(this.errorHandler.bind(this));
     }
 
     componentDidMount = () => {
@@ -44,15 +41,7 @@ export default class WeatherView extends React.Component {
 
     renderCachedComponents() {
         return this.state.cachedPlaces.map((place) => (
-            <Card
-                key={place.name}
-                width={'30%'}
-                loading={false}
-                place={place.name}
-                iconCode={place.iconCode}
-                temperature={place.temperature}
-                description={place.description}
-            />
+            <Card key={place.name} width={'20%'} loading={false} place={place.name} iconCode={place.iconCode} temperature={place.temperature} description={place.description} />
         ));
     }
     render = () => {
@@ -60,10 +49,10 @@ export default class WeatherView extends React.Component {
             return <div>Place not found!</div>;
         }
         return (
-            <>
-                <div style={{ width: '50%' }}>
+            <div style={{ height: '100%' }}>
+                <div style={{ height: '50%', width: '100%'}}>
                     <Card
-                        width={'30%'}
+                        width={'100%'}
                         loading={this.state.isLoading}
                         place={this.state.actualPlace.name}
                         iconCode={this.state.actualPlace.iconCode}
@@ -71,8 +60,10 @@ export default class WeatherView extends React.Component {
                         description={this.state.actualPlace.description}
                     />
                 </div>
-                <div style={{ width: '50%' }}>{this.renderCachedComponents()}</div>
-            </>
+                <div style={{ height: '50%'}}>
+                    <div>{this.renderCachedComponents()}</div>
+                </div>
+            </div>
         );
     };
 }
